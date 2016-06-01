@@ -11,6 +11,7 @@ package com.parse.starter;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
 import com.parse.ParseACL;
 import com.parse.ParseUser;
 
@@ -25,7 +26,21 @@ public class StarterApplication extends Application {
     Parse.enableLocalDatastore(this);
 
     // Add your initialization code here
-    Parse.initialize(this);
+    //Parse.initialize(this);
+
+    Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
+            .applicationId("YOUR_APP_ID")
+            .clientKey("YOUR_CLIENT_KEY")
+            .server("YOUR_SERVER_URL")
+            .build()
+    );
+
+    ParseObject task = new ParseObject("MyDate");
+    task.put("month", "July");
+    task.put("day", "23");
+    task.put("year","2016");
+    task.put("username", "myname");
+    task.saveInBackground();
 
     ParseUser.enableAutomaticUser();
     ParseACL defaultACL = new ParseACL();
